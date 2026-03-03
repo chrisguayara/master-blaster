@@ -15,6 +15,7 @@ import MBAnimatedSprite from "../Nodes/MBAnimatedSprite";
 import MathUtils from "../../Wolfie2D/Utils/MathUtils";
 import { MBEvents } from "../MBEvents";
 import Dead from "./PlayerStates/Dead";
+import Take_Damage from "./PlayerStates/Take_Damage";
 
 // TODO play your heros animations
 
@@ -26,7 +27,8 @@ export const PlayerAnimations = {
     WALK: "WALK",
     JUMP: "JUMP",
     ATTACK: "ATTACK",
-    FALL: "FALL"
+    FALL: "FALL",
+    TAKE_DAMAGE: "TAKE_DAMAGE"
 } as const
 
 /**
@@ -46,6 +48,7 @@ export const PlayerStates = {
 	JUMP: "JUMP",
     FALL: "FALL",
     DEAD: "DEAD",
+    TAKE_DAMAGE: "TAKE_DAMAGE"
 } as const
 
 /**
@@ -88,6 +91,7 @@ export default class PlayerController extends StateMachineAI {
         this.addState(PlayerStates.JUMP, new Jump(this, this.owner));
         this.addState(PlayerStates.FALL, new Fall(this, this.owner));
         this.addState(PlayerStates.DEAD, new Dead(this, this.owner));
+        this.addState(PlayerStates.TAKE_DAMAGE, new Take_Damage(this, this.owner));
         
         // Start the player in the Idle state
         this.initialize(PlayerStates.IDLE);

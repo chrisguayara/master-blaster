@@ -1,6 +1,6 @@
 import GameEvent from "../../../Wolfie2D/Events/GameEvent";
 import { GameEventType } from "../../../Wolfie2D/Events/GameEventType";
-import { PlayerStates, PlayerTweens } from "../PlayerController";
+import { PlayerAnimations, PlayerStates, PlayerTweens } from "../PlayerController";
 
 import PlayerState from "./PlayerState";
 
@@ -13,6 +13,7 @@ export default class Jump extends PlayerState {
         this.parent.velocity.y = -200;
         // Play the jump sound for the player
 		this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: jumpAudio, loop: false, holdReference: false});
+        this.owner.animation.play(PlayerAnimations.JUMP);
 	}
 
 	public update(deltaT: number): void {
@@ -37,6 +38,8 @@ export default class Jump extends PlayerState {
             this.parent.velocity.y += this.gravity*deltaT;
             // Move the player
             this.owner.move(this.parent.velocity.scaled(deltaT));
+
+            
         }
 	}
 
