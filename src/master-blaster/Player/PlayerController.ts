@@ -25,6 +25,7 @@ export const PlayerAnimations = {
     IDLE: "IDLE",
     WALK: "WALK",
     JUMP: "JUMP",
+    FALL: "FALLING"
 } as const
 
 /**

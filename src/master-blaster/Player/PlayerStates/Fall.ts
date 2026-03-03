@@ -1,5 +1,7 @@
+import AnimationManager from "../../../Wolfie2D/Rendering/Animations/AnimationManager";
+import { AnimationState } from "../../../Wolfie2D/Rendering/Animations/AnimationTypes";
 import MathUtils from "../../../Wolfie2D/Utils/MathUtils";
-import { PlayerStates } from "../PlayerController";
+import { PlayerAnimations, PlayerStates } from "../PlayerController";
 import PlayerState from "./PlayerState";
 
 export default class Fall extends PlayerState {
@@ -26,6 +28,8 @@ export default class Fall extends PlayerState {
             this.parent.velocity.y += this.gravity*deltaT;
             // Move the player
             this.owner.move(this.parent.velocity.scaled(deltaT));
+
+            this.owner.animation.play(PlayerAnimations.FALL);
         }
 
     }
