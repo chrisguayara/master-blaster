@@ -23,9 +23,9 @@ import Dead from "./PlayerStates/Dead";
  */
 export const PlayerAnimations = {
     IDLE: "IDLE",
-    WALK: "WALK",
+    WALK: "WALKING",
     JUMP: "JUMP",
-    FALL: "FALLING"
+    FALL: "FALL"
 } as const
 
 /**
@@ -114,6 +114,7 @@ export default class PlayerController extends StateMachineAI {
             // Start the particle system at the player's current position
             this.weapon.startSystem(500, 0, this.owner.position);
         }
+
 
 	}
 
