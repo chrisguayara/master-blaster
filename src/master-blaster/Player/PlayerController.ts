@@ -126,6 +126,7 @@ export default class PlayerController extends StateMachineAI {
             this.weapon.setDirection(this.faceDir) ;
         }
 
+
 	}
 
     public get velocity(): Vec2 { return this._velocity; }
