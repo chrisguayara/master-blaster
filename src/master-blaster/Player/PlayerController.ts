@@ -15,6 +15,8 @@ import MBAnimatedSprite from "../Nodes/MBAnimatedSprite";
 import MathUtils from "../../Wolfie2D/Utils/MathUtils";
 import { MBEvents } from "../MBEvents";
 import Dead from "./PlayerStates/Dead";
+import Take_Damage from "./PlayerStates/Take_Damage";
+import Attack from "./PlayerStates/Attack";
 
 // TODO play your heros animations
 
@@ -25,7 +27,13 @@ export const PlayerAnimations = {
     IDLE: "IDLE",
     WALK: "WALKING",
     JUMP: "JUMP",
+<<<<<<< HEAD
     FALL: "FALL"
+=======
+    ATTACK: "ATTACK",
+    FALL: "FALL",
+    TAKE_DAMAGE: "TAKE_DAMAGE"
+>>>>>>> FRESH_STARTF
 } as const
 
 /**
@@ -45,6 +53,8 @@ export const PlayerStates = {
 	JUMP: "JUMP",
     FALL: "FALL",
     DEAD: "DEAD",
+    TAKE_DAMAGE: "TAKE_DAMAGE",
+    ATTACK: "ATTACK"
 } as const
 
 /**
@@ -87,6 +97,8 @@ export default class PlayerController extends StateMachineAI {
         this.addState(PlayerStates.JUMP, new Jump(this, this.owner));
         this.addState(PlayerStates.FALL, new Fall(this, this.owner));
         this.addState(PlayerStates.DEAD, new Dead(this, this.owner));
+        this.addState(PlayerStates.TAKE_DAMAGE, new Take_Damage(this, this.owner));
+        this.addState(PlayerStates.ATTACK, new Attack(this, this.owner));
         
         // Start the player in the Idle state
         this.initialize(PlayerStates.IDLE);
@@ -113,6 +125,9 @@ export default class PlayerController extends StateMachineAI {
         if (Input.isPressed(MBControls.ATTACK) && !this.weapon.isSystemRunning()) {
             // Start the particle system at the player's current position
             this.weapon.startSystem(500, 0, this.owner.position);
+        }
+        if (Input.isPressed(MBControls.ATTACK)){
+            this.weapon.setDirection(this.faceDir) ;
         }
 
 

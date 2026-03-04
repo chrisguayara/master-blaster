@@ -15,7 +15,7 @@ export const MenuLayers = {
 export default class MainMenu extends Scene {
 
     public static readonly MUSIC_KEY = "MAIN_MENU_MUSIC";
-    public static readonly MUSIC_PATH = "game_assets/music/MB_menu_music.mp3";
+    public static readonly MUSIC_PATH = "game_assets/music/CG_thick_forests_mm.mp3";
 
     public loadScene(): void {
         // Load the menu song
