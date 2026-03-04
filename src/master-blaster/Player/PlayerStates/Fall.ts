@@ -34,9 +34,13 @@ export default class Fall extends PlayerState {
             this.owner.move(this.parent.velocity.scaled(deltaT));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             this.owner.animation.playIfNotAlready(PlayerAnimations.FALL);
 =======
             // this.owner.animation.playIfNotAlready(PlayerAnimations.FALL);    /broken rn
+>>>>>>> FRESH_STARTF
+=======
+            this.owner.animation.playIfNotAlready(PlayerAnimations.FALL);   
 >>>>>>> FRESH_STARTF
         }
 
