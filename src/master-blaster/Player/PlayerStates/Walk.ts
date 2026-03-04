@@ -1,7 +1,8 @@
-import { PlayerStates, PlayerAnimations } from "../PlayerController";
+import { PlayerStates, PlayerAnimations, PlayerTweens } from "../PlayerController";
 import Input from "../../../Wolfie2D/Input/Input";
 import { MBControls } from "../../MBControls";
 import PlayerState from "./PlayerState";
+import TweenController from "../../../Wolfie2D/Rendering/Animations/TweenController";
 
 export default class Walk extends PlayerState {
 
@@ -24,6 +25,7 @@ export default class Walk extends PlayerState {
 		} 
         // If the player hits the jump key - transition to the Jump state
         else if (Input.isJustPressed(MBControls.JUMP)) {
+            this.owner.tweens.play(PlayerTweens.FLIP);
             this.finished(PlayerStates.JUMP);
         } 
         // If the player is not on the ground, transition to the fall state

@@ -3,23 +3,22 @@ import PlayerState from "./PlayerState";
 import Input from "../../../Wolfie2D/Input/Input";
 import { MBControls } from "../../MBControls";
 
-export default class Take_Damage extends PlayerState {
-    public doneEntering = false;
+export default class Attack extends PlayerState {
+    
 
     public onEnter(): void {
         this.parent.velocity.x = 0;
         this.parent.velocity.y = 0;
 
-        this.owner.animation.play(PlayerAnimations.TAKE_DAMAGE);
-        this.doneEntering = true;
+        this.owner.animation.play(PlayerAnimations.ATTACK);
+        let dir = this.parent.faceDir;
+        
         
     }
 
     public update(deltaT: number): void {
-        
-        if (!this.owner.animation.isPlaying(PlayerAnimations.TAKE_DAMAGE) && this.doneEntering === true) {
-            this.finished(PlayerStates.IDLE);
-        }
+        if(!this.owner.animation.isPlaying(PlayerAnimations.ATTACK)){
+            this.finished(PlayerStates.IDLE);}
         
     }
 

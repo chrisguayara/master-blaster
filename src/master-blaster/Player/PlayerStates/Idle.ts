@@ -31,6 +31,9 @@ export default class Idle extends PlayerState {
         else if (!this.owner.onGround && this.parent.velocity.y > 0) {
             this.finished(PlayerStates.FALL);
         } 
+        else if (Input.isPressed(MBControls.ATTACK)){
+            this.finished(PlayerStates.ATTACK)
+        }
         // Otherwise, do nothing (keep idling)
         else {
             // Update the vertical velocity of the player

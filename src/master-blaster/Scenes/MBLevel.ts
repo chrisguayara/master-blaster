@@ -431,6 +431,19 @@ export default abstract class MBLevel extends Scene {
             ],
             onEnd: MBEvents.PLAYER_DEAD
         });
+        this.player.tweens.add(PlayerTweens.FLIP, {
+            startDelay: 0,
+            duration: 200,
+            effects: [
+                {
+                    property: "rotation",
+                    start: 0,
+                    end: -2*Math.PI,
+                    ease: EaseFunctionType.IN_OUT_QUAD
+                },
+            ]
+            // onEnd: MBEvents.PLAYER_DEAD
+        });
 
         // Give the player it's AI
         this.player.addAI(PlayerController, { 
