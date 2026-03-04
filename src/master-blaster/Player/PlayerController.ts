@@ -25,15 +25,11 @@ import Attack from "./PlayerStates/Attack";
  */
 export const PlayerAnimations = {
     IDLE: "IDLE",
-    WALK: "WALKING",
+    WALK: "WALK",
     JUMP: "JUMP",
-<<<<<<< HEAD
-    FALL: "FALL"
-=======
     ATTACK: "ATTACK",
     FALL: "FALL",
     TAKE_DAMAGE: "TAKE_DAMAGE"
->>>>>>> FRESH_STARTF
 } as const
 
 /**
