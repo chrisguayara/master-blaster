@@ -29,7 +29,8 @@ export const PlayerAnimations = {
     JUMP: "JUMP",
     ATTACK: "ATTACK",
     FALL: "FALL",
-    TAKE_DAMAGE: "TAKE_DAMAGE"
+    TAKE_DAMAGE: "TAKE_DAMAGE",
+    DYING: "DYING"
 } as const
 
 /**
@@ -50,7 +51,8 @@ export const PlayerStates = {
     FALL: "FALL",
     DEAD: "DEAD",
     TAKE_DAMAGE: "TAKE_DAMAGE",
-    ATTACK: "ATTACK"
+    ATTACK: "ATTACK",
+    DYING: "DYING"
 } as const
 
 /**
@@ -86,6 +88,7 @@ export default class PlayerController extends StateMachineAI {
 
         this.health = 5
         this.maxHealth = 5;
+        
 
         // Add the different states the player can be in to the PlayerController 
 		this.addState(PlayerStates.IDLE, new Idle(this, this.owner));
@@ -95,10 +98,13 @@ export default class PlayerController extends StateMachineAI {
         this.addState(PlayerStates.DEAD, new Dead(this, this.owner));
         this.addState(PlayerStates.TAKE_DAMAGE, new Take_Damage(this, this.owner));
         this.addState(PlayerStates.ATTACK, new Attack(this, this.owner));
+        this.addState(PlayerStates.DYING, new Dying(this, this.owner));
         
         // Start the player in the Idle state
         this.initialize(PlayerStates.IDLE);
     }
+
+
 
     /** 
 	 * Get the inputs from the keyboard, or Vec2.Zero if nothing is being pressed
@@ -148,6 +154,11 @@ export default class PlayerController extends StateMachineAI {
         // When the health changes, fire an event up to the scene.
         this.emitter.fireEvent(MBEvents.HEALTH_CHANGE, {curhp: this.health, maxhp: this.maxHealth});
         // If the health hit 0, change the state of the player
-        if (this.health === 0) { this.changeState(PlayerStates.DEAD); }
+        if (this.health === 0) { 
+            
+            this.changeState(PlayerStates.DEAD); 
+        }
     }
+
+    
 }

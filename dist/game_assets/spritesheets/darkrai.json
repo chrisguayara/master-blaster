@@ -193,15 +193,15 @@
       "repeat": true,
       "frames": [
         {
-          "index": 69,
+          "index": 72,
           "duration": 45
         },
         {
-          "index": 70,
+          "index": 73,
           "duration": 45
         },
         {
-          "index": 71,
+          "index": 74,
           "duration": 40
         }
       ]
@@ -231,31 +231,31 @@
       "frames": [
         {
           "index": 81,
-          "duration": 30
+          "duration": 6
         },
         {
           "index": 82,
-          "duration": 30
+          "duration": 6
         },
         {
           "index": 83,
-          "duration": 18
+          "duration": 10
         },
         {
           "index": 84,
-          "duration": 30
+          "duration": 6
         },
         {
           "index": 85,
-          "duration": 35
+          "duration": 6
         },
         {
           "index": 86,
-          "duration": 30
+          "duration": 6
         },
         {
           "index": 87,
-          "duration": 30
+          "duration": 7
         }
       ]
     },

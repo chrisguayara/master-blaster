@@ -65,6 +65,12 @@ export default class PlayerWeapon extends ParticleSystem {
                     start: 1,
                     end: 0,
                     ease: EaseFunctionType.IN_OUT_SINE
+                },
+                {
+                    property: "rotation",
+                    start: 0,
+                    end: 2* Math.PI,
+                    ease: EaseFunctionType.IN_OUT_QUAD
                 }
             ]
         });

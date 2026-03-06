@@ -32,7 +32,8 @@ export default class Idle extends PlayerState {
             this.finished(PlayerStates.FALL);
         } 
         else if (Input.isPressed(MBControls.ATTACK)){
-            this.finished(PlayerStates.ATTACK)
+            
+            this.finished(PlayerStates.ATTACK);
         }
         // Otherwise, do nothing (keep idling)
         else {
