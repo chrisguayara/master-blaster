@@ -103,10 +103,10 @@ export default abstract class MBLevel extends Scene {
             ],
             collisions: [
                 //  Ground  Player  Weapon  Destruct
-                    [0,     1,      1,      0],  // Ground
-                    [1,     0,      0,      1],  // Player
-                    [1,     0,      0,      1],  // Weapon
-                    [0,     1,      1,      0],  // Destructible
+                    [0,     1,      1,      0],  
+                    [1,     0,      0,      1],  
+                    [1,     0,      0,      1], 
+                    [0,     1,      1,      0],  
             ]
         }});
         this.add = new MBFactoryManager(this, this.tilemaps);
@@ -189,6 +189,10 @@ export default abstract class MBLevel extends Scene {
                 
                 break;
             }
+            case MBEvents.PARTICLE_DESTRUCT: {
+                this.handleParticleHit(event.data.get("node"));
+                break;
+            }
             // Default: Throw an error! No unhandled events allowed.
             default: {
                 throw new Error(`Unhandled event caught in scene with type ${event.type}`)
@@ -223,7 +227,7 @@ export default abstract class MBLevel extends Scene {
                     // If the tile is collideable -> check if this particle is colliding with the tile
                     if(tilemap.isTileCollidable(col, row) && this.particleHitTile(tilemap, particle, col, row)){
                         this.emitter.fireEvent(GameEventType.PLAY_SOUND, { key: this.tileDestroyedAudioKey, loop: false, holdReference: false });
-                        // TODO Destroy the tile
+                        tilemap.setTileAtRowCol(new Vec2(col, row), 0);
                     }
                 }
             }
@@ -240,8 +244,17 @@ export default abstract class MBLevel extends Scene {
      * @returns true of the particle hit the tile; false otherwise
      */
     protected particleHitTile(tilemap: OrthogonalTilemap, particle: Particle, col: number, row: number): boolean {
-        // TODO detect whether a particle hit a tile
-        return;
+        let tileSize = tilemap.getTileSize();
+        let tileCenter = new Vec2(
+            col * tileSize.x + tileSize.x / 2,
+            row * tileSize.y + tileSize.y / 2
+        );
+        let halfSize = tileSize.scaled(0.5);
+        let collider = new AABB(tileCenter, tileSize);
+        return particle.boundary.overlaps(collider);
+
+
+        
     }
 
     /**
@@ -303,8 +316,12 @@ export default abstract class MBLevel extends Scene {
 
         // Add physicss to the wall layer
         this.walls.addPhysics();
+        this.walls.setGroup(MBPhysicsGroups.GROUND);
         // Add physics to the destructible layer of the tilemap
         this.destructable.addPhysics();
+        this.destructable.setGroup(MBPhysicsGroups.DESTRUCTABLE);
+        this.destructable.setTrigger(MBPhysicsGroups.PLAYER_WEAPON, MBEvents.PARTICLE_DESTRUCT, null);
+
     }
     /**
      * Handles all subscriptions to events
@@ -315,6 +332,7 @@ export default abstract class MBLevel extends Scene {
         this.receiver.subscribe(MBEvents.LEVEL_END);
         this.receiver.subscribe(MBEvents.HEALTH_CHANGE);
         this.receiver.subscribe(MBEvents.PLAYER_DEAD);
+        this.receiver.subscribe(MBEvents.PARTICLE_DESTRUCT);
         
     }
     /**

@@ -82,6 +82,10 @@ export default class Level1 extends MBLevel {
     public unloadScene(): void {
        //
        this.emitter.fireEvent(GameEventType.STOP_SOUND, {key: this.levelMusicKey});
+       this.load.keepSpritesheet(this.playerSpriteKey);
+       this.load.keepAudio(this.deadAudioKey);
+       this.load.keepAudio(this.jumpAudioKey);
+       this.load.keepAudio(this.tileDestroyedAudioKey);
     }
 
     public startScene(): void {

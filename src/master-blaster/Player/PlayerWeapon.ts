@@ -1,10 +1,13 @@
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Particle from "../../Wolfie2D/Nodes/Graphics/Particle";
 import ParticleSystem from "../../Wolfie2D/Rendering/Animations/ParticleSystem";
+import Scene from "../../Wolfie2D/Scene/Scene";
 import Color from "../../Wolfie2D/Utils/Color";
 import { EaseFunctionType } from "../../Wolfie2D/Utils/EaseFunctions";
 import MathUtils from "../../Wolfie2D/Utils/MathUtils";
 import RandUtils from "../../Wolfie2D/Utils/RandUtils";
+import { MBEvents } from "../MBEvents";
+import { MBPhysicsGroups } from "../MBPhysicsGroups";
 
  
 
@@ -39,7 +42,17 @@ export default class PlayerWeapon extends ParticleSystem {
     public normalize(vec :Vec2){
         return Math.sqrt( vec[0] * vec[0]+ vec[1] * vec[1] );
     }
+    public initializePool(scene: Scene, layer: string): void {
+        super.initializePool(scene, layer);
+
+        for (let particle of this.particlePool) {
+            particle.addPhysics();
+            particle.setGroup(MBPhysicsGroups.PLAYER_WEAPON)
+        }
+    }
     public setParticleAnimation(particle: Particle) {
+        particle.setGroup(MBPhysicsGroups.PLAYER_WEAPON);
+        
         
 
         const spread = RandUtils.randFloat(-40,40);
