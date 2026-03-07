@@ -5,6 +5,7 @@ import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import MBLevel2 from "./MBLevel2";
+import { GameEventType } from "../../Wolfie2D/Events/GameEventType";
 
 /**
  * The first level for Master Blaster - should be the one with the grass and the clouds.
@@ -26,6 +27,9 @@ export default class Level1 extends MBLevel {
 
     public static readonly JUMP_AUDIO_KEY = "PLAYER_JUMP";
     public static readonly JUMP_AUDIO_PATH = "game_assets/sounds/jump.wav";
+
+    public static readonly DEAD_AUDIO_KEY = "PLAYER_DEAD";
+    public static readonly DEAD_AUDIO_PATH = "game_assets/sounds/death.mp3";
 
     public static readonly TILE_DESTROYED_KEY = "TILE_DESTROYED";
     public static readonly TILE_DESTROYED_PATH = "game_assets/sounds/switch.wav";
@@ -49,6 +53,7 @@ export default class Level1 extends MBLevel {
         // Music and sound
         this.levelMusicKey = Level1.LEVEL_MUSIC_KEY
         this.jumpAudioKey = Level1.JUMP_AUDIO_KEY;
+        this.deadAudioKey = Level1.DEAD_AUDIO_KEY;
         this.tileDestroyedAudioKey = Level1.TILE_DESTROYED_KEY;
 
         // Level end size and position
@@ -67,6 +72,7 @@ export default class Level1 extends MBLevel {
         // Audio and music
         this.load.audio(this.levelMusicKey, Level1.LEVEL_MUSIC_PATH);
         this.load.audio(this.jumpAudioKey, Level1.JUMP_AUDIO_PATH);
+        this.load.audio(this.deadAudioKey, Level1.DEAD_AUDIO_PATH);
         this.load.audio(this.tileDestroyedAudioKey, Level1.TILE_DESTROYED_PATH);
     }
 
@@ -74,12 +80,15 @@ export default class Level1 extends MBLevel {
      * Unload resources for level 1
      */
     public unloadScene(): void {
-        // TODO decide which resources to keep/cull 
+       //
+       this.emitter.fireEvent(GameEventType.STOP_SOUND, {key: this.levelMusicKey});
     }
 
     public startScene(): void {
         super.startScene();
         // Set the next level to be Level2
+
+        
         this.nextLevel = MBLevel2;
     }
 

@@ -311,6 +311,7 @@ class MBLevel1 {
         // Audio and music
         this.load.audio(this.levelMusicKey, Level1.LEVEL_MUSIC_PATH);
         this.load.audio(this.jumpAudioKey, Level1.JUMP_AUDIO_PATH);
+        this.load.audio(this.deadAudioKey, Level1.DEAD_AUDIO_PATH);
         this.load.audio(this.tileDestroyedAudioKey, Level1.TILE_DESTROYED_PATH);
     }
 }
@@ -330,6 +331,7 @@ class MBLevel2 {
         // Audio and music
         this.load.audio(this.levelMusicKey, Level2.LEVEL_MUSIC_PATH);
         this.load.audio(this.jumpAudioKey, Level2.JUMP_AUDIO_PATH);
+        this.load.audio(this.deadAudioKey, Level2.DEAD_AUDIO_PATH);
         this.load.audio(this.tileDestroyedAudioKey, Level2.TILE_DESTROYED_PATH);
     }
 }

@@ -90,12 +90,25 @@ export default abstract class MBLevel extends Scene {
     /** Sound and music */
     protected levelMusicKey: string;
     protected jumpAudioKey: string;
+    protected deadAudioKey: string;
     protected tileDestroyedAudioKey: string;
 
     public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
         super(viewport, sceneManager, renderingManager, {...options, physics: {
-            // TODO configure the collision groups and collision map
-         }});
+            groupNames: [
+                MBPhysicsGroups.GROUND,
+                MBPhysicsGroups.PLAYER,
+                MBPhysicsGroups.PLAYER_WEAPON,
+                MBPhysicsGroups.DESTRUCTABLE
+            ],
+            collisions: [
+                //  Ground  Player  Weapon  Destruct
+                    [0,     1,      1,      0],  // Ground
+                    [1,     0,      0,      1],  // Player
+                    [1,     0,      0,      1],  // Weapon
+                    [0,     1,      1,      0],  // Destructible
+            ]
+        }});
         this.add = new MBFactoryManager(this, this.tilemaps);
     }
 
@@ -123,7 +136,7 @@ export default abstract class MBLevel extends Scene {
         this.initializeLevelEnds();
 
         this.levelTransitionTimer = new Timer(500);
-        this.levelEndTimer = new Timer(3000, () => {
+        this.levelEndTimer = new Timer(10, () => {
             // After the level end timer ends, fade to black and then go to the next scene
             this.levelTransitionScreen.tweens.play("fadeIn");
         });
@@ -172,7 +185,8 @@ export default abstract class MBLevel extends Scene {
                 break;
             }
             case MBEvents.PLAYER_DEAD: {
-                this.sceneManager.changeToScene(MainMenu);
+                this.sceneManager.changeToScene(this.nextLevel);
+                
                 break;
             }
             // Default: Throw an error! No unhandled events allowed.
@@ -301,6 +315,7 @@ export default abstract class MBLevel extends Scene {
         this.receiver.subscribe(MBEvents.LEVEL_END);
         this.receiver.subscribe(MBEvents.HEALTH_CHANGE);
         this.receiver.subscribe(MBEvents.PLAYER_DEAD);
+        
     }
     /**
      * Adds in any necessary UI to the game
@@ -482,5 +497,9 @@ export default abstract class MBLevel extends Scene {
     // Get the key of the player's jump audio file
     public getJumpAudioKey(): string {
         return this.jumpAudioKey
+    }
+
+    public getDeadAudioKey(): string {
+        return this.deadAudioKey
     }
 }

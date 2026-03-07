@@ -17,6 +17,9 @@ import { MBEvents } from "../MBEvents";
 import Dead from "./PlayerStates/Dead";
 import Take_Damage from "./PlayerStates/Take_Damage";
 import Attack from "./PlayerStates/Attack";
+import { MBPhysicsGroups } from "../MBPhysicsGroups";
+import AABB from "../../Wolfie2D/DataTypes/Shapes/AABB";
+
 
 // TODO play your heros animations
 
@@ -30,7 +33,8 @@ export const PlayerAnimations = {
     ATTACK: "ATTACK",
     FALL: "FALL",
     TAKE_DAMAGE: "TAKE_DAMAGE",
-    DYING: "DYING"
+    DYING: "DYING",
+    DEAD: "DEAD"
 } as const
 
 /**
@@ -51,8 +55,7 @@ export const PlayerStates = {
     FALL: "FALL",
     DEAD: "DEAD",
     TAKE_DAMAGE: "TAKE_DAMAGE",
-    ATTACK: "ATTACK",
-    DYING: "DYING"
+    ATTACK: "ATTACK"
 } as const
 
 /**
@@ -77,6 +80,8 @@ export default class PlayerController extends StateMachineAI {
     protected weapon: PlayerWeapon;
 
     
+
+    
     public initializeAI(owner: MBAnimatedSprite, options: Record<string, any>){
         this.owner = owner;
 
@@ -98,10 +103,13 @@ export default class PlayerController extends StateMachineAI {
         this.addState(PlayerStates.DEAD, new Dead(this, this.owner));
         this.addState(PlayerStates.TAKE_DAMAGE, new Take_Damage(this, this.owner));
         this.addState(PlayerStates.ATTACK, new Attack(this, this.owner));
-        this.addState(PlayerStates.DYING, new Dying(this, this.owner));
+        
         
         // Start the player in the Idle state
         this.initialize(PlayerStates.IDLE);
+        this.owner.setGroup(MBPhysicsGroups.PLAYER);
+
+        
     }
 
 
@@ -121,6 +129,7 @@ export default class PlayerController extends StateMachineAI {
     public get faceDir(): Vec2 { return this.owner.position.dirTo(Input.getGlobalMousePosition()); }
 
     public update(deltaT: number): void {
+        
 		super.update(deltaT);
 
         // If the player hits the attack button and the weapon system isn't running, restart the system and fire!
@@ -157,6 +166,7 @@ export default class PlayerController extends StateMachineAI {
         if (this.health === 0) { 
             
             this.changeState(PlayerStates.DEAD); 
+            
         }
     }
 

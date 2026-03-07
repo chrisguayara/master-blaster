@@ -5,6 +5,7 @@ import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Scene from "../../Wolfie2D/Scene/Scene";
 import Color from "../../Wolfie2D/Utils/Color";
 import Level1 from "./MBLevel1";
+import Level2 from "./MBLevel2";
 
 
 // Layers for the main menu scene

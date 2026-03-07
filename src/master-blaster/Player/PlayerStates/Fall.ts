@@ -15,9 +15,15 @@ export default class Fall extends PlayerState {
 
         // If the player hits the ground, start idling and check if we should take damage
         if (this.owner.onGround) {
+            //CHANGE THIS BACK TO 200
 
             let damage_taken = Math.floor(this.parent.velocity.y / 200);
+
+            
             this.parent.health -= damage_taken;
+            if (this.parent.health <= 0) {
+                return;
+            }
             
             if (damage_taken != 0) {this.finished(PlayerStates.TAKE_DAMAGE);}
             else {this.finished(PlayerStates.IDLE);}

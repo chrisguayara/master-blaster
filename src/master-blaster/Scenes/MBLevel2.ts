@@ -2,7 +2,7 @@ import AABB from "../../Wolfie2D/DataTypes/Shapes/AABB";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import MBLevel from "./MBLevel";
 import MainMenu from "./MainMenu";
-
+import { GameEventType } from "../../Wolfie2D/Events/GameEventType";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
@@ -14,7 +14,7 @@ export default class Level2 extends MBLevel {
 
     public static readonly PLAYER_SPAWN = new Vec2(32, 32);
     public static readonly PLAYER_SPRITE_KEY = "PLAYER_SPRITE_KEY";
-    public static readonly PLAYER_SPRITE_PATH = "game_assets/spritesheets/Hero.json";
+    public static readonly PLAYER_SPRITE_PATH = "game_assets/spritesheets/Darkrai.json";
 
     public static readonly TILEMAP_KEY = "LEVEL2";
     public static readonly TILEMAP_PATH = "game_assets/tilemaps/MBLevel2.json";
@@ -27,6 +27,9 @@ export default class Level2 extends MBLevel {
 
     public static readonly JUMP_AUDIO_KEY = "PLAYER_JUMP";
     public static readonly JUMP_AUDIO_PATH = "game_assets/sounds/jump.wav";
+
+    public static readonly DEAD_AUDIO_KEY = "PLAYER_DEAD";
+    public static readonly DEAD_AUDIO_PATH = "game_assets/sounds/death.mp3";
 
     public static readonly TILE_DESTROYED_KEY = "TILE_DESTROYED";
     public static readonly TILE_DESTROYED_PATH = "game_assets/sounds/switch.wav";
@@ -68,11 +71,13 @@ export default class Level2 extends MBLevel {
         // Audio and music
         this.load.audio(this.levelMusicKey, Level2.LEVEL_MUSIC_PATH);
         this.load.audio(this.jumpAudioKey, Level2.JUMP_AUDIO_PATH);
+        this.load.audio(this.deadAudioKey, Level2.DEAD_AUDIO_PATH);
         this.load.audio(this.tileDestroyedAudioKey, Level2.TILE_DESTROYED_PATH);
     }
 
     public unloadScene(): void {
         // TODO decide which resources to keep/cull 
+        this.emitter.fireEvent(GameEventType.STOP_SOUND, {key: this.levelMusicKey});
     }
 
     public startScene(): void {
