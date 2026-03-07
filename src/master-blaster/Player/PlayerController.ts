@@ -136,10 +136,13 @@ export default class PlayerController extends StateMachineAI {
         if (Input.isPressed(MBControls.ATTACK) && !this.weapon.isSystemRunning()) {
             // Start the particle system at the player's current position
             this.weapon.startSystem(500, 0, this.owner.position);
+            this.changeState(PlayerStates.ATTACK)
         }
         if (Input.isPressed(MBControls.ATTACK)){
-            this.weapon.setDirection(this.faceDir) ;
+            this.weapon.setDirection(this.faceDir) 
+            ;
         }
+        
 
 
 	}

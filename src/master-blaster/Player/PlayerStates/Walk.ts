@@ -9,12 +9,14 @@ export default class Walk extends PlayerState {
 	onEnter(options: Record<string, any>): void {
 		this.parent.speed = this.parent.MIN_SPEED;
         
-        this.owner.animation.playIfNotAlready(PlayerAnimations.WALK);
+        
+       
 	}
 
 	update(deltaT: number): void {
         // Call the update method in the parent class - updates the direction the player is facing
         super.update(deltaT);
+        
 
         // Get the input direction from the player controller
 		let dir = this.parent.inputDir;

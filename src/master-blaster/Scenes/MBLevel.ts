@@ -91,6 +91,7 @@ export default abstract class MBLevel extends Scene {
     protected levelMusicKey: string;
     protected jumpAudioKey: string;
     protected deadAudioKey: string;
+    protected hurtAudioKey: string;
     protected tileDestroyedAudioKey: string;
 
     public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
@@ -185,7 +186,7 @@ export default abstract class MBLevel extends Scene {
                 break;
             }
             case MBEvents.PLAYER_DEAD: {
-                this.sceneManager.changeToScene(this.nextLevel);
+                this.sceneManager.changeToScene(MainMenu);
                 
                 break;
             }
@@ -519,5 +520,9 @@ export default abstract class MBLevel extends Scene {
 
     public getDeadAudioKey(): string {
         return this.deadAudioKey
+    }
+
+    public getHurtAudioKey(): string {
+        return this.hurtAudioKey
     }
 }

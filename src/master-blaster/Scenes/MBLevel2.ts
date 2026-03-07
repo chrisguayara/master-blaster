@@ -23,7 +23,7 @@ export default class Level2 extends MBLevel {
     public static readonly WALLS_LAYER_KEY = "Main";
 
     public static readonly LEVEL_MUSIC_KEY = "LEVEL_MUSIC";
-    public static readonly LEVEL_MUSIC_PATH = "game_assets/music/MB_level_music.wav";
+    public static readonly LEVEL_MUSIC_PATH = "game_assets/music/level2_carbon.mp3";
 
     public static readonly JUMP_AUDIO_KEY = "PLAYER_JUMP";
     public static readonly JUMP_AUDIO_PATH = "game_assets/sounds/jump.wav";
@@ -33,6 +33,9 @@ export default class Level2 extends MBLevel {
 
     public static readonly TILE_DESTROYED_KEY = "TILE_DESTROYED";
     public static readonly TILE_DESTROYED_PATH = "game_assets/sounds/switch.wav";
+
+    public static readonly HURT_AUDIO_KEY = "PLAYER_HURT";
+    public static readonly HURT_AUDIO_PATH = "game_assets/sounds/hurt.mp3";
 
     public static readonly LEVEL_END = new AABB(new Vec2(224, 232), new Vec2(24, 16));
 
@@ -53,6 +56,7 @@ export default class Level2 extends MBLevel {
         // Music and sound
         this.levelMusicKey = Level2.LEVEL_MUSIC_KEY
         this.jumpAudioKey = Level2.JUMP_AUDIO_KEY;
+        this.deadAudioKey = Level2.DEAD_AUDIO_KEY;
         this.tileDestroyedAudioKey = Level2.TILE_DESTROYED_KEY;
 
         // Level end size and position

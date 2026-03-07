@@ -7,8 +7,7 @@ export default class Attack extends PlayerState {
     
 
     public onEnter(): void {
-        this.parent.velocity.x = 0;
-        this.parent.velocity.y = 0;
+        
 
         this.owner.animation.play(PlayerAnimations.ATTACK);
         let dir = this.parent.faceDir;
@@ -17,6 +16,9 @@ export default class Attack extends PlayerState {
     }
 
     public update(deltaT: number): void {
+        this.parent.velocity.x = 0;
+        this.parent.velocity.y += this.gravity * deltaT;
+        this.owner.move(this.parent.velocity.scaled(deltaT));
         if(!this.owner.animation.isPlaying(PlayerAnimations.ATTACK)){
             this.finished(PlayerStates.IDLE);}
         
